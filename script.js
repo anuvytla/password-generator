@@ -5,14 +5,14 @@ var includeUppercase;
 var includeLowercase;
 var newArr = [];
 
+var refreshBtn = document.getElementById("refresh");
+var generateBtn = document.querySelector("#generate");
+
 var specialChar = ["+", "-", "&", "!", "(", ")", "[", "]", "^",
 "~", "*", "?", ":","/","#","@","$","%"];
 var upperCases =['A','B', 'C', 'D','E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N','O', 'P', 'Q', 'R', 'S', 'T', 'U','V','W', 'X','Y', 'Z'];
 var lowerCases=['a','b', 'c', 'd','e', 'f', 'g', 'h','i', 'j', 'k', 'l', 'm', 'n','o', 'p', 'q', 'r', 's', 't', 'u','v','w', 'x','y', 'z'];
 var nums=['1','2','3','4','5','6','7','8','9','0'];
-
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
@@ -27,6 +27,8 @@ function writePassword() {
         var passwordText = document.querySelector("#password");
         // generate password  and display it to the user
         passwordText.value = generatePassword();
+        // Enable refresh button to regenerate a new password without asking user input again.
+        refreshBtn.removeAttribute("disabled");
     }
 }
 
@@ -59,10 +61,15 @@ function generatePassword() {
         // Add the character at random index to the password.
         password += newArr[randomNum];
     }
-
     return password;
-
 }
+
+function refreshPassword() {
+    // Generate a new password without asking for user input again.
+    document.querySelector("#password").value = generatePassword();
+}
+
+refreshBtn.addEventListener("click", refreshPassword);
 
 // This functions gets user passowrd preference from prompts.
 function getPasswordPreferences() {
